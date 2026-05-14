@@ -1,9 +1,8 @@
 import axios from "axios";
 import { useRef } from "react";
 import "./register.css";
-import { useHistory } from "react-router";
+import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
-
 
 export default function Register() {
   const username = useRef();
@@ -23,8 +22,8 @@ export default function Register() {
         password: password.current.value,
       };
       try {
-        await axios.post("/api/auth/register", user);
-        history.push("/login");
+        await axios.post("http://localhost:5001/api/auth/register", user);
+       history.push("/login");
       } catch (err) {
         console.log(err);
       }

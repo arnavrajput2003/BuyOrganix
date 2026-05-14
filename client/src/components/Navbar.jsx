@@ -4,18 +4,15 @@ import React from "react";
 import styled from "styled-components";
 import { mobile } from "../responsive";
 import { useSelector } from "react-redux";
-import  { useState } from "react"
+import { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { lgout } from "../redux/apiCalls";
 import { useDispatch } from "react-redux";
-import {
-  Search,
-  BookmarksOutlined
-} from "@material-ui/icons"
+import { Search } from "@material-ui/icons";
+
 const Container = styled.div`
   height: 60px;
   background-color: #34eb77;
-
   ${mobile({ height: "50px" })}
 `;
 
@@ -28,12 +25,14 @@ const Wrapper = styled.div`
 `;
 
 const SearchContainer = styled.div`
-  border: 0.5px green;
+  border: 0.5px solid green;
   display: flex;
   align-items: center;
   margin-left: 25px;
   padding: 5px;
-`
+  background-color: white;
+  border-radius: 5px;
+`;
 
 const Left = styled.div`
   flex: 1;
@@ -42,25 +41,10 @@ const Left = styled.div`
 `;
 
 const Language = styled.span`
-   font-size: 14px;
-
+  font-size: 14px;
   cursor: pointer;
-
   ${mobile({ display: "none" })}
 `;
-
-// const SearchContainer = styled.div`
-//   border: 0.5px solid lightgray;
-//   display: flex;
-//   align-items: center;
-//   margin-left: 25px;
-//   padding: 5px;
-// `;
-
-// const Input = styled.input`
-//   border: none;
-//   ${mobile({ width: "50px" })}
-// `;
 
 const Center = styled.div`
   flex: 1;
@@ -71,6 +55,7 @@ const Logo = styled.h1`
   font-weight: bold;
   ${mobile({ fontSize: "24px" })}
 `;
+
 const Right = styled.div`
   text-decoration: none;
   flex: 1;
@@ -81,71 +66,71 @@ const Right = styled.div`
 `;
 
 const Input = styled.input`
-  margin-left: 25px;
   padding: 5px;
   border: none;
+  outline: none;
   ${mobile({ width: "50px" })}
-`
+`;
 
 const MenuItem = styled.div`
-  text-decoration: underline;
   font-size: 17px;
   cursor: pointer;
   margin-left: 25px;
   ${mobile({ fontSize: "12px", marginLeft: "10px" })}
 `;
 
-
 const Navbar = () => {
-  const [search, setSearch] = useState("")
-  const quantity = useSelector(state=>state.cart.quantity);
+  const [search, setSearch] = useState("");
+  const quantity = useSelector((state) => state.cart.quantity);
   const user = useSelector((state) => state.user.currentUser);
   const dispatch = useDispatch();
-  const history = useHistory()
+  const history = useHistory();
+
   const handleClick = () => {
     lgout(dispatch);
   };
 
-    //handling submit
-    const handleSubmit = (e) => {
-      e.preventDefault()
-      history.push(`/products/${search}`)
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (search.trim()) {
+      history.push(`/products/${search}`);
     }
-  
-  if (!user){ 
+  };
+
+  if (!user) {
     return (
       <Container>
         <Wrapper>
           <Left>
-      
-            
-            {/* <SearchContainer>
-              <Input placeholder="Search" />
-              <Search style={{ color: "gray", fontSize: 16 }} />
-            </SearchContainer> */}
-            {/* Test */}
             <form onSubmit={handleSubmit}>
-            <SearchContainer>
-              <Input
-                placeholder="Search Products"
-                onChange={(e) => setSearch(e.target.value)}
-              />
-              <Search style={{ color: "black", fontSize: 25}} />
-            </SearchContainer>
-          </form>
+              <SearchContainer>
+                <Input
+                  placeholder="Search Products"
+                  onChange={(e) => setSearch(e.target.value)}
+                />
+                <Search
+                  style={{ color: "black", fontSize: 25, cursor: "pointer" }}
+                  onClick={handleSubmit}
+                />
+              </SearchContainer>
+            </form>
           </Left>
           <Center>
-            <Logo><Link to={`/`} style={{ textDecoration: 'none', color: 'black' }}>BuyOrganix</Link></Logo>
+            <Logo>
+              <Link to="/" style={{ textDecoration: "none", color: "black" }}>
+                BuyOrganix
+              </Link>
+            </Logo>
           </Center>
           <Right>
-          <Link to="/shop" style={{ textDecoration: 'none', color: 'black' }}>
-              <MenuItem style={{ textDecoration: 'none', color: 'black' }}>SHOP</MenuItem>
+            <Link to="/shop" style={{ textDecoration: "none", color: "black" }}>
+              <MenuItem>SHOP</MenuItem>
             </Link>
-            <Link to="/register" style={{ textDecoration: 'none', color: 'black' }}>
-              <MenuItem style={{ textDecoration: 'none', color: 'black' }}>REGISTER </MenuItem>
+            <Link to="/register" style={{ textDecoration: "none", color: "black" }}>
+              <MenuItem>REGISTER</MenuItem>
             </Link>
-            <Link to="/login" style={{ textDecoration: 'none', color: 'black' }}>
-              <MenuItem style={{ textDecoration: 'none', color: 'black' }}>SIGN IN</MenuItem>
+            <Link to="/login" style={{ textDecoration: "none", color: "black" }}>
+              <MenuItem>SIGN IN</MenuItem>
             </Link>
             <Link to="/login">
               <MenuItem>
@@ -158,40 +143,45 @@ const Navbar = () => {
         </Wrapper>
       </Container>
     );
-  }
-  else{
+  } else {
     return (
       <Container>
         <Wrapper>
           <Left>
-            <Language><Link to={`/`}><img src="../favicon.ico" width="45" height="35" alt=""></img></Link></Language>
-            {/* <SearchContainer>
-              <Input placeholder="Search" />
-              <Search style={{ color: "gray", fontSize: 16 }} />
-            </SearchContainer> */}
-             <form onSubmit={handleSubmit}>
-            <SearchContainer>
-              <Input
-                placeholder="Search Products"
-                onChange={(e) => setSearch(e.target.value)}
-              />
-              <Search style={{ color: "gray", fontSize: 16 }} />
-            </SearchContainer>
-          </form>
-            
+            <Language>
+              <Link to="/">
+                <img src="../favicon.ico" width="45" height="35" alt="" />
+              </Link>
+            </Language>
+            <form onSubmit={handleSubmit}>
+              <SearchContainer>
+                <Input
+                  placeholder="Search Products"
+                  onChange={(e) => setSearch(e.target.value)}
+                />
+                <Search
+                  style={{ color: "black", fontSize: 25, cursor: "pointer" }}
+                  onClick={handleSubmit}
+                />
+              </SearchContainer>
+            </form>
           </Left>
           <Center>
-            <Logo><Link to={`/`} style={{ textDecoration: 'none', color: 'black' }}>BuyOrganix</Link></Logo>
+            <Logo>
+              <Link to="/" style={{ textDecoration: "none", color: "black" }}>
+                BuyOrganix
+              </Link>
+            </Logo>
           </Center>
           <Right>
-          <Link to="/shop" style={{ textDecoration: 'none', color: 'black' }}>
-              <MenuItem style={{ textDecoration: 'none', color: 'black' }}>SHOP</MenuItem>
+            <Link to="/shop" style={{ textDecoration: "none", color: "black" }}>
+              <MenuItem>SHOP</MenuItem>
             </Link>
-          <Link to={"/user/"+user._id} style={{ textDecoration: 'none', color: 'black' }}>
-              <MenuItem style={{ textDecoration: 'none', color: 'black'}}>Hello, {user.username.toUpperCase()} </MenuItem>
+            <Link to={"/user/" + user._id} style={{ textDecoration: "none", color: "black" }}>
+              <MenuItem>Hello, {user.username.toUpperCase()}</MenuItem>
             </Link>
-            <Link to="/" onClick={handleClick} style={{ textDecoration: 'none', color: 'black' }}>
-              <MenuItem style={{ textDecoration: 'none', color: 'black' }}><b>Logout</b></MenuItem>
+            <Link to="/" onClick={handleClick} style={{ textDecoration: "none", color: "black" }}>
+              <MenuItem><b>Logout</b></MenuItem>
             </Link>
             <Link to="/cart">
               <MenuItem>

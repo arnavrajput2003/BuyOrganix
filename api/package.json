@@ -28,6 +28,7 @@
     "multer": "^1.4.4",
     "node-fetch": "^3.2.3",
     "nodemon": "^2.0.12",
+    "razorpay": "^2.9.6",
     "react-alert": "^7.0.3",
     "redis": "^4.0.6",
     "rotating-file-stream": "^3.0.3",

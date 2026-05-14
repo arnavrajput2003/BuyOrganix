@@ -84,6 +84,8 @@ app.use("/api/carts", cartRoute);
 app.use("/api/orders", orderRoute);
 app.use("/api/checkout", stripeRoute);
 app.use("/api/contact", contactRoute);
+const razorpayRoute = require("./routes/razorpay");
+app.use("/api/razorpay", razorpayRoute);
 
 // Image upload
 app.post("/upload-images", upload.array("image"), async (req, res) => {

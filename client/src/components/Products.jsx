@@ -7,19 +7,39 @@ const Container = styled.div`
   padding: 20px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 20px;
+`;
+
+const NotFound = styled.div`
+  font-size: 24px;
+  color: gray;
+  text-align: center;
+  width: 100%;
+  margin-top: 50px;
 `;
 
 const Products = ({ cat, filters, sort }) => {
   const [filteredProducts, setFilteredProducts] = useState([]);
 
-  // 🔥 FILTER BY CATEGORY
+  // 🔥 FILTER BY CATEGORY OR SEARCH
   useEffect(() => {
     if (cat) {
-      const filtered = popularProducts.filter(
+      // Check if it matches a category exactly
+      const categoryMatch = popularProducts.filter(
         (item) => item.category.toLowerCase() === cat.toLowerCase()
       );
-      setFilteredProducts(filtered);
+
+      if (categoryMatch.length > 0) {
+        // It's a category filter
+        setFilteredProducts(categoryMatch);
+      } else {
+        // It's a search query — filter by title
+        const searchMatch = popularProducts.filter((item) =>
+          item.title.toLowerCase().includes(cat.toLowerCase())
+        );
+        setFilteredProducts(searchMatch);
+      }
     } else {
       setFilteredProducts(popularProducts);
     }
@@ -40,9 +60,13 @@ const Products = ({ cat, filters, sort }) => {
 
   return (
     <Container>
-      {filteredProducts.map((item) => (
-        <Product item={item} key={item.id} />
-      ))}
+      {filteredProducts.length > 0 ? (
+        filteredProducts.map((item) => (
+          <Product item={item} key={item.id} />
+        ))
+      ) : (
+        <NotFound>No products found for "{cat}" 😔</NotFound>
+      )}
     </Container>
   );
 };

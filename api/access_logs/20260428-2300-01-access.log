@@ -1,0 +1,4 @@
+::1 - - [28/Apr/2026:17:23:25 +0000] "POST /api/auth/register HTTP/1.1" 201 261 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36"
+::1 - - [28/Apr/2026:17:23:38 +0000] "POST /api/auth/login HTTP/1.1" 200 412 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36"
+::1 - - [28/Apr/2026:17:24:48 +0000] "POST /api/razorpay/create-order HTTP/1.1" 200 230 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36"
+::1 - - [28/Apr/2026:17:24:48 +0000] "POST /api/razorpay/create-order HTTP/1.1" 200 230 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36"

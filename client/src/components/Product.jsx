@@ -1,11 +1,13 @@
 import styled from "styled-components";
+import { useDispatch } from "react-redux";
+import { addProduct } from "../redux/cartRedux";
 
 // 🔹 MAIN CARD
 const Container = styled.div`
   flex: 1;
   min-width: 250px;
   max-width: 250px;
-  height: 300px;
+  height: 330px;
   margin: 10px;
   border-radius: 10px;
   overflow: hidden;
@@ -15,31 +17,48 @@ const Container = styled.div`
   justify-content: space-between;
 `;
 
-// 🔹 IMAGE
 const Image = styled.img`
   width: 100%;
   height: 200px;
-  object-fit: cover;   // 🔥 makes all images same size
+  object-fit: cover;
 `;
 
-// 🔹 TITLE
 const Title = styled.h3`
   text-align: center;
   margin: 5px 0;
 `;
 
-// 🔹 PRICE
 const Price = styled.p`
   text-align: center;
   color: green;
   font-weight: bold;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
+`;
+
+const Button = styled.button`
+  margin: 0 10px 10px 10px;
+  padding: 8px;
+  background-color: teal;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  &:hover {
+    background-color: darkgreen;
+  }
 `;
 
 const Product = ({ item }) => {
+  const dispatch = useDispatch();
+
+  const handleAddToCart = () => {
+    dispatch(addProduct({ ...item, quantity: 1 }));
+  };
+
   return (
     <Container>
-      {/* 🔥 IMAGE WITH FALLBACK */}
       <Image
         src={item.img}
         alt={item.title}
@@ -47,9 +66,9 @@ const Product = ({ item }) => {
           e.target.src = "https://via.placeholder.com/200?text=No+Image";
         }}
       />
-
       <Title>{item.title}</Title>
       <Price>₹{item.price}</Price>
+      <Button onClick={handleAddToCart}>Add to Cart 🛒</Button>
     </Container>
   );
 };
